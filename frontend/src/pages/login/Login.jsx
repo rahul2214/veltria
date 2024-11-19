@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+// import { Link } from "react-router-dom"
 import useLogin from "../../hooks/useLogin";
 
 function Login() {
@@ -35,7 +35,7 @@ function Login() {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)} />
                     </div>
-                    <Link to="/signup" className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block"> {"Don't"} have an account?</Link>
+                    {/* <Link to="/signup" className="text-sm hover:underline hover:text-blue-600 mt-2 inline-block"> {"Don't"} have an account?</Link> */}
                     <div>
                         <button className="btn btn-block btn-sm mt-2"
                             disabled={loading}
