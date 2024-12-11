@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import './App.css';
+// import './App.css';
 import { Toaster } from 'react-hot-toast';
 import { useAuthContext } from './context/Authcontext';
 
