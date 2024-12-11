@@ -30,7 +30,7 @@ function App() {
         <Routes>
           {/* Authenticated routes */}
           <Route path='/dashboard' element={authUser ? <Home /> : <Navigate to="/login" />} />
-          <Route path='/createJob' element={authUser ? <CreateEmployee /> : <Navigate to="/login" />} />
+          <Route path='/createJob' element={<CreateEmployee /> } />
           <Route path='/employeeList' element={authUser ? <EmployeeList /> : <Navigate to="/login" />} />
           <Route path='/workshopList' element={authUser ? <WorkShopList /> : <Navigate to="/login" />} />
           <Route path='/createWorkShop' element={authUser ? <CreateWorkShop /> : <Navigate to="/login" />} />
