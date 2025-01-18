@@ -1,15 +1,9 @@
 import React, { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-<<<<<<< HEAD
 import { Toaster } from 'react-hot-toast';
 import { useAuthContext } from './context/Authcontext';
 import MainNavbar from './pages/mainPage/navbar/index';// Import your main navbar component
 import SkeletonLoader from './skeletonLoader';
-=======
-// import './App.css';
-import { Toaster } from 'react-hot-toast';
-import { useAuthContext } from './context/Authcontext';
->>>>>>> 5b5ec2a0ef3df348ef4084ffc3d6eda486854b1f
 
 // Lazy loading components
 const Home = React.lazy(() => import('./pages/home/Home'));
@@ -33,24 +27,15 @@ function App() {
   return (
     <div>
       {/* Fallback loader for lazy loading */}
-<<<<<<< HEAD
       <Suspense fallback={<SkeletonLoader />}>
         <Routes>
           {/* Authenticated routes */}
           <Route path='/dashboard' element={authUser ? <Home /> : <Navigate to="/login" />} />
           <Route path='/createJob' element={<CreateEmployee />} />
-=======
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          {/* Authenticated routes */}
-          <Route path='/dashboard' element={authUser ? <Home /> : <Navigate to="/login" />} />
-          <Route path='/createJob' element={<CreateEmployee /> } />
->>>>>>> 5b5ec2a0ef3df348ef4084ffc3d6eda486854b1f
           <Route path='/employeeList' element={authUser ? <EmployeeList /> : <Navigate to="/login" />} />
           <Route path='/workshopList' element={authUser ? <WorkShopList /> : <Navigate to="/login" />} />
           <Route path='/createWorkShop' element={authUser ? <CreateWorkShop /> : <Navigate to="/login" />} />
 
-<<<<<<< HEAD
           {/* Public routes with MainNavbar */}
           <Route
             path='/'
@@ -70,21 +55,6 @@ function App() {
 
           {/* Login route */}
           <Route path='/login' element={authUser ? <Navigate to="/dashboard" /> : <Login />} />
-=======
-          {/* Public routes */}
-          <Route path='/login' element={authUser ? <Navigate to="/dashboard" /> : <Login />} />
-          <Route path='/' element={<HomePage />} />
-          <Route path='/jobs' element={<Jobs />} />
-          <Route path='/services' element={<Services />} />
-          <Route path='/aboutus' element={<AboutUs />} />
-          <Route path='/contact' element={<Contact />} />
-          <Route path='/blog' element={<Blogs />} />
-          <Route path='/workshops' element={<HomePageWorkShopList />} />
-          <Route path='/job-details/:id' element={<JobDetails />} />
-
-          
-
->>>>>>> 5b5ec2a0ef3df348ef4084ffc3d6eda486854b1f
         </Routes>
       </Suspense>
       <Toaster />
