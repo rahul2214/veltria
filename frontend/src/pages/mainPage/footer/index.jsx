@@ -1,29 +1,34 @@
-import './index.css'
+import { useCallback, memo } from "react";
+import "./index.css";
 
-function Footer() {
-
-    const onSubmit = async (event) => {
+const Footer = memo(() => {
+    const onSubmit = useCallback(async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
-
         formData.append("access_key", "b593c500-d046-4b76-8d9b-93f9c2cbc063");
 
-        const object = Object.fromEntries(formData);
-        const json = JSON.stringify(object);
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(Object.fromEntries(formData)),
+            }).then((res) => res.json());
 
-        const res = await fetch("https://api.web3forms.com/submit", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json"
-            },
-            body: json
-        }).then((res) => res.json());
-
-        if (res.success) {
-            console.log("Success", res);
+            if (response.success) {
+                console.log("Subscription successful:", response);
+                alert("Thank you for subscribing!");
+            } else {
+                console.error("Subscription failed:", response.message);
+                alert("Subscription failed. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error during subscription:", error);
+            alert("An error occurred. Please try again later.");
         }
-    };
+    }, []);
+
     return (
         <div>
             <footer className="footer">
@@ -52,13 +57,19 @@ function Footer() {
 
                 <div className="footer-section footer-contact">
                     <h3>Contact</h3>
-                    <p>+916303563546</p>
-                    <p>admin@veltria.in</p>
+                    <p>
+                        <strong>Phone:</strong> +91 6303563546
+                    </p>
+                    <p>
+                        <strong>Email:</strong> admin@veltria.in
+                    </p>
                 </div>
 
                 <form className="footer-section footer-follow" onSubmit={onSubmit}>
                     <h3>Follow Us</h3>
-                    <label className="footer-label" htmlFor="footer-email">Enter your email address</label>
+                    <label className="footer-label" htmlFor="footer-email">
+                        Enter your email address
+                    </label>
                     <input
                         type="email"
                         id="footer-email"
@@ -69,16 +80,25 @@ function Footer() {
                     />
                     <button type="submit">Subscribe</button>
                 </form>
-
             </footer>
             <div className="footer-below">
-                <p>© 2024. All rights reserved.</p>
+                <p>© 2024 Veltria. All rights reserved.</p>
             </div>
-            <a href="https://wa.me/+916303563546" className="whatsapp-button" target="_blank">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" title="Contact Us via WhatsApp" />
+            <a
+                href="https://wa.me/+916303563546"
+                className="whatsapp-button"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Contact Us via WhatsApp"
+            >
+                <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                    alt="WhatsApp"
+                    loading="lazy"
+                />
             </a>
         </div>
     );
-}
+});
 
 export default Footer;
