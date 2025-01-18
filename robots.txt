@@ -1,0 +1,24 @@
+# Allow all bots to access the main content
+User-agent: *
+Disallow: /admin/
+Disallow: /private/
+Disallow: /login/
+Disallow: /tmp/
+
+# Allow everything else
+Allow: /
+
+# Specify the location of the sitemap
+Sitemap: https://veltria.in/sitemap.xml
+
+# Block specific crawlers if needed
+User-agent: BadBot
+Disallow: /
+
+# Allow Google's image crawler
+User-agent: Googlebot-Image
+Disallow: /private-images/
+
+# Block other search engines from indexing images in private areas
+User-agent: *
+Disallow: /private-images/

@@ -53,7 +53,7 @@ function Footer() {
                 <div className="footer-section footer-contact">
                     <h3>Contact</h3>
                     <p>+916303563546</p>
-                    <p>veltria.in@gmail.com</p>
+                    <p>admin@veltria.in</p>
                 </div>
 
                 <form className="footer-section footer-follow" onSubmit={onSubmit}>
