@@ -1,7 +1,6 @@
 // components/JobDetails.jsx
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import MainNavbar from '../navbar/index';
 import Footer from '../footer';
 import './index.css'; // Link to CSS file
 
@@ -34,7 +33,6 @@ const JobDetails = () => {
 
     return (
         <div >
-            <MainNavbar />
             <div className="back-link-container">
                 <Link to="/jobs" className="back-link">
                     &larr;  Back to Job Listings

@@ -1,6 +1,4 @@
 import Footer from '../footer';
-import MainNavbar from '../navbar/index';
-
 import './index.css'
 
 function Contact() {
@@ -29,10 +27,6 @@ function Contact() {
     };
     return (
         <div>
-            <MainNavbar />
-
-
-            
             <section className="contact-section">
                 <div className="contact-container">
                     <div className="contact-header">

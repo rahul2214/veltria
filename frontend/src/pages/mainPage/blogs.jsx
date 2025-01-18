@@ -1,12 +1,9 @@
 import Footer from './footer';
-import MainNavbar from './navbar/index';
 import underConstructionImage from './image.png';
 
 function Blogs() {
     return (
         <div>
-            <MainNavbar />
-
             <div
                 className="under-construction-container"
                 style={{

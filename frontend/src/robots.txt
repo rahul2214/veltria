@@ -1,0 +1,19 @@
+# General rules for all bots
+User-agent: *
+Disallow: /admin/
+Disallow: /private/
+Disallow: /login/
+Disallow: /tmp/
+Disallow: /private-images/
+Allow: /
+
+# Allow Google's image crawler to access everything except private images
+User-agent: Googlebot-Image
+Disallow: /private-images/
+
+# Block specific bad bot from accessing the site
+User-agent: BadBot
+Disallow: /
+
+# Sitemap location for better indexing
+Sitemap: https://veltria.in/sitemap.xml

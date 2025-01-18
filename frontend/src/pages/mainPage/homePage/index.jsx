@@ -1,12 +1,10 @@
 import Footer from "../footer";
 import { useState } from 'react';
-import MainNavbar from "../navbar/index";
 import './index.css'
 
 function HomePage() {
     return (
         <div>
-            <MainNavbar />
             <section className="hero-main">
                 <div className="hero-main-content">
                     <h1>Innovate.<br />Adapt. Succeed.</h1>

@@ -2,7 +2,6 @@ import { useState, useMemo } from 'react';
 import useFetchEmployees from '../../hooks/useFetchEmployees';
 import EmployeeSearchInput from '../../components/SearchInput';
 import { useNavigate } from 'react-router-dom';
-import MainNavbar from './navbar/index';
 import Footer from './footer';
 
 const Jobs = () => {
@@ -67,7 +66,6 @@ const Jobs = () => {
 
     return (
         <div>
-            <MainNavbar />
             <div className="mx-auto p-4">
                 <div className="bg-gray-400 p-6 rounded-lg backdrop-filter backdrop-blur-lg bg-opacity-0">
                     {/* Search Input */}

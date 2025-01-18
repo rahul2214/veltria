@@ -1,11 +1,9 @@
 import Footer from '../footer';
-import MainNavbar from '../navbar/index';
 import './index.css'
 
 function Services() {
     return (
         <div>
-            <MainNavbar />
             
             <div className="hero-services">
                 <h1>Professional Web and <br/> App Development <br/> Services</h1>

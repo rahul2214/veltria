@@ -1,12 +1,9 @@
 import Footer from '../footer';
-import MainNavbar from '../navbar/index';
 import './index.css'
 
 function AboutUs() {
     return (
         <div>
-            <MainNavbar />
-
             <section className="digital-solutions">
                 <div className="content-wrapper">
                     <div className="left-content">

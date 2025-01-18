@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './index.css';
+import { Outlet } from 'react-router-dom';
 
 const MainNavbar = () => {
     const [sideNavOpen, setSideNavOpen] = useState(false);
@@ -53,6 +54,7 @@ const MainNavbar = () => {
                     <li><a href="/contact">Contact</a></li>
                 </ul>
             </div>
+            <Outlet/>
         </div>
     );
 };
