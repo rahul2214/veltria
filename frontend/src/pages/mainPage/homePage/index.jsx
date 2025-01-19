@@ -37,7 +37,7 @@ function HomePage() {
             <section className="hero-mobile">
                 <div className="hero-image">
                     <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/home-main.png?v=1726477960888"
-                        alt="Illustration" className="responsive-img" />
+                        alt="Illustration" className="responsive-img" loading="lazy"/>
                 </div>
                 <div className="hero-content">
                     <h1>Innovate.<br />Adapt. Succeed.</h1>
@@ -45,17 +45,17 @@ function HomePage() {
                     <div className="features">
                         <div className="feature">
                             <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/chrome_EqXzY6l4Dm.png?v=1726478338409"
-                                alt="Speed & Security Icon" />
+                                alt="Speed & Security Icon" loading="lazy"/>
                                 <p>Speed & Security</p>
                         </div>
                         <div className="feature">
                             <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/chrome_EqXzY6l4Dm.png?v=1726478338409"
-                                alt="Flexibility & Scalability Icon" />
+                                alt="Flexibility & Scalability Icon" loading="lazy"/>
                                 <p>Flexibility & Scalability</p>
                         </div>
                         <div className="feature">
                             <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/chrome_EqXzY6l4Dm.png?v=1726478338409"
-                                alt="Better Collaboration Icon"/>
+                                alt="Better Collaboration Icon" loading="lazy"/>
                                 <p>Better Collaboration</p>
                         </div>
                     </div>
@@ -153,20 +153,17 @@ function HomePage() {
                                
                                 <div className="logo-item">
                                     <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/koolaid.jpg?v=1726479705694"
-                                        alt="A.T. Motion Logo" />
+                                alt="A.T. Motion Logo" loading="lazy"/>
                                     <span>Koolaid</span>
                                 </div>
                                 <div className="logo-item">
                                     <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/look.png?v=1726479583927"
-                                        alt="Bond Logo" />
+                                alt="Bond Logo" loading="lazy"/>
                                     <span>Look</span>
                                 </div>
                             </div>
                         </div>
                     </section>
-
-                    
-                 
 
             <FAQSection />
             <Footer/>

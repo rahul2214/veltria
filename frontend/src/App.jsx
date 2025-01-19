@@ -1,8 +1,8 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { useAuthContext } from './context/Authcontext';
-import MainNavbar from './pages/mainPage/navbar/index';// Import your main navbar component
+import MainNavbar from './pages/mainPage/navbar/index'; // Import your main navbar component
 import SkeletonLoader from './skeletonLoader';
 
 // Lazy loading components
@@ -24,14 +24,21 @@ const JobDetails = React.lazy(() => import('./pages/mainPage/jobdetails'));
 function App() {
   const { authUser } = useAuthContext();
 
+  // Preload routes for better performance
+  // useEffect(() => {
+  //   const preloadRoutes = ["employeeList", "createEmployee", "createWorkShop", "workshopList"];
+  //   preloadRoutes.forEach((route) => import(`./pages/${route}.jsx`));  // Add the file extension
+  // }, []);
+
+
   return (
     <div>
-      {/* Fallback loader for lazy loading */}
+      {/* Suspense for lazy loading */}
       <Suspense fallback={<SkeletonLoader />}>
         <Routes>
           {/* Authenticated routes */}
           <Route path='/dashboard' element={authUser ? <Home /> : <Navigate to="/login" />} />
-          <Route path='/createJob' element={<CreateEmployee />} />
+          <Route path='/createJob' element={authUser ? <CreateEmployee /> : <Navigate to="/login" />} />
           <Route path='/employeeList' element={authUser ? <EmployeeList /> : <Navigate to="/login" />} />
           <Route path='/workshopList' element={authUser ? <WorkShopList /> : <Navigate to="/login" />} />
           <Route path='/createWorkShop' element={authUser ? <CreateWorkShop /> : <Navigate to="/login" />} />
@@ -39,9 +46,7 @@ function App() {
           {/* Public routes with MainNavbar */}
           <Route
             path='/'
-            element={
-                <MainNavbar />
-            }
+            element={<MainNavbar />}
           >
             <Route index element={<HomePage />} />
             <Route path='jobs' element={<Jobs />} />
@@ -57,6 +62,8 @@ function App() {
           <Route path='/login' element={authUser ? <Navigate to="/dashboard" /> : <Login />} />
         </Routes>
       </Suspense>
+
+      {/* Toast notifications */}
       <Toaster />
     </div>
   );

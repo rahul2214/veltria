@@ -1,19 +1,19 @@
-import { useState } from 'react';
+import { useState, useCallback, memo } from 'react';
 import './index.css';
 import { Outlet } from 'react-router-dom';
 
-const MainNavbar = () => {
+const MainNavbar = memo(() => {
     const [sideNavOpen, setSideNavOpen] = useState(false);
 
-    const openSideNav = () => {
+    const openSideNav = useCallback(() => {
         setSideNavOpen(true);
         document.body.style.overflow = 'hidden';
-    };
+    }, []);
 
-    const closeSideNav = () => {
+    const closeSideNav = useCallback(() => {
         setSideNavOpen(false);
         document.body.style.overflow = 'auto';
-    };
+    }, []);
 
     return (
         <div>
@@ -54,9 +54,12 @@ const MainNavbar = () => {
                     <li><a href="/contact">Contact</a></li>
                 </ul>
             </div>
-            <Outlet/>
+            <Outlet />
         </div>
     );
-};
+});
+
+// Adding the displayName explicitly
+MainNavbar.displayName = 'MainNavbar';
 
 export default MainNavbar;

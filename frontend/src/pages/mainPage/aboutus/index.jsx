@@ -40,7 +40,7 @@ function AboutUs() {
                                 growth by leveraging the latest technology and industry insights.</p>
                         </div>
                         <div className="image">
-                            <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/about1.jpg?v=1726479185664" alt="Mission Image"/>
+                            <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/about1.jpg?v=1726479185664" alt="Mission Image" loading="lazy" />
                         </div>
                     </div>
                     <div className="content">
@@ -52,7 +52,7 @@ function AboutUs() {
                                 solutions that meet your unique business needs.</p>
                         </div>
                         <div className="image">
-                            <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/about2.jpg?v=1726479189792" alt="Purpose Image"/>
+                            <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/about2.jpg?v=1726479189792" alt="Purpose Image" loading="lazy" />
                         </div>
                     </div>
                   
@@ -68,7 +68,7 @@ function AboutUs() {
                                 aligned with your goals every step of the way.</p>
                         </div>
                         <div className="image">
-                            <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/about1.jpg?v=1726479185664" alt="Why Choose Us Image"/>
+                            <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/about1.jpg?v=1726479185664" alt="Why Choose Us Image" loading="lazy" />
                         </div>
                     </div>
 
@@ -98,7 +98,7 @@ function AboutUs() {
                             in
                             digital marketing strategies.</p>
                         <div className="client-info">
-                            <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/review2.avif?v=1726479330142" alt="Mark Smith"/>
+                            <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/review2.avif?v=1726479330142" alt="Mark Smith" loading="lazy" />
                                 <div>
                                     <h4>Mark Smith</h4>
                                     <p>Chicago</p>
@@ -109,7 +109,7 @@ function AboutUs() {
                         <div className="stars">⭐⭐⭐⭐⭐</div>
                         <p>Veltria’s web development transformed my business. Their professionalism is unmatched!</p>
                         <div className="client-info">
-                            <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/image.png?v=1726479338862" alt="Alice Johnson"/>
+                            <img src="https://cdn.glitch.global/02a02e56-c6dd-4845-b7d3-20bc8ccecb0c/image.png?v=1726479338862" alt="Alice Johnson" loading="lazy" />
                                 <div>
                                     <h4>Alice Johnson</h4>
                                     <p>New York</p>

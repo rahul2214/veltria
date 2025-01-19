@@ -3,6 +3,7 @@ import useFetchEmployees from '../../hooks/useFetchEmployees';
 import EmployeeSearchInput from '../../components/SearchInput';
 import { useNavigate } from 'react-router-dom';
 import Footer from './footer';
+import useDebouncedSearch from '../../hooks/useDebouncedSearch'; // Import your custom hook
 
 const Jobs = () => {
     const { jobs, totalJobs, loading, error } = useFetchEmployees();
@@ -11,58 +12,66 @@ const Jobs = () => {
     const [sortOrder] = useState("desc");
     const [selectedDomain, setSelectedDomain] = useState("");
     const [selectedJobType, setSelectedJobType] = useState("");
+    const [showFilterModal, setShowFilterModal] = useState(false);
+    const [tempDomain, setTempDomain] = useState("");
+    const [tempJobType, setTempJobType] = useState("");
     const navigate = useNavigate();
+
+    // Use the custom hook for debounced search
+    const debouncedSearchTerm = useDebouncedSearch(searchTerm);
 
     const handleJobClick = (employee) => {
         const { _id } = employee;
         navigate(`/job-details/${_id}`);
     };
 
+    const applyFilters = () => {
+        setSelectedDomain(tempDomain);
+        setSelectedJobType(tempJobType);
+        setShowFilterModal(false);
+    };
+
     const sortedEmployees = useMemo(() => {
-        let sortedList = [...jobs];
+        let filteredJobs = [...jobs];
 
-        // Filter by domain
         if (selectedDomain) {
-            sortedList = sortedList.filter(employee => employee.domain === selectedDomain);
+            filteredJobs = filteredJobs.filter(
+                (job) => job.domain.toLowerCase() === selectedDomain.toLowerCase()
+            );
         }
 
-        // Filter by job type
         if (selectedJobType) {
-            sortedList = sortedList.filter(employee => employee.jobtype === selectedJobType);
+            filteredJobs = filteredJobs.filter(
+                (job) => job.jobtype.toLowerCase() === selectedJobType.toLowerCase()
+            );
         }
 
-        // Sort by field and order
+        if (debouncedSearchTerm) {
+            filteredJobs = filteredJobs.filter(
+                (job) =>
+                    job.jobrole.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+                    job.location.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+                    job.companyname.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+            );
+        }
+
         if (sortField) {
-            sortedList.sort((a, b) => {
-                let aValue = a[sortField];
-                let bValue = b[sortField];
-
-                if (sortField === "createdAt") {
-                    aValue = new Date(aValue);
-                    bValue = new Date(bValue);
-                } else {
-                    aValue = aValue.toLowerCase();
-                    bValue = bValue.toLowerCase();
-                }
-
-                return sortOrder === "asc" ? (aValue > bValue ? 1 : -1) : (aValue < bValue ? 1 : -1);
+            filteredJobs.sort((a, b) => {
+                const valueA = sortField === "createdAt" ? new Date(a[sortField]) : a[sortField].toLowerCase();
+                const valueB = sortField === "createdAt" ? new Date(b[sortField]) : b[sortField].toLowerCase();
+                return sortOrder === "asc" ? valueA > valueB : valueA < valueB;
             });
         }
 
-        // Search by job role, location, or company name
-        return sortedList.filter(employee =>
-            employee.jobrole.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            employee.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            employee.companyname.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-    }, [jobs, sortField, sortOrder, searchTerm, selectedDomain, selectedJobType]);
-
-    if (loading) return <div><p className="text-black">Loading...</p></div>;
-    if (error) return <div><p className="text-red-600">{error}</p></div>;
+        return filteredJobs;
+    }, [jobs, debouncedSearchTerm, sortField, sortOrder, selectedDomain, selectedJobType]);
 
     // Extract unique domains and job types
-    const uniqueDomains = [...new Set(jobs.map(emp => emp.domain))];
-    const uniqueJobTypes = [...new Set(jobs.map(emp => emp.jobtype))];
+    const uniqueDomains = useMemo(() => [...new Set(jobs.map((job) => job.domain))], [jobs]);
+    const uniqueJobTypes = useMemo(() => [...new Set(jobs.map((job) => job.jobtype))], [jobs]);
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div className="text-red-600">Error: {error}</div>;
 
     return (
         <div>
@@ -76,38 +85,29 @@ const Jobs = () => {
                     {/* Total Jobs Count */}
                     <h1 className="text-gray-700 mb-4">Total Jobs: {totalJobs}</h1>
 
-                    {/* Filter by Job Type */}
-                    <div className="flex justify-between items-center mt-4 mb-6">
-                        <label className="text-gray-700">
-                            Filter by Job Type:
-                            <select
-                                value={selectedJobType}
-                                onChange={(e) => setSelectedJobType(e.target.value)}
-                                className="ml-2 p-2 bg-white border rounded"
+                    {/* Filter Button */}
+                    <div className="flex justify-end mb-6">
+                        <div
+                            onClick={() => setShowFilterModal(true)}
+                            className="flex items-center gap-2 cursor-pointer bg-blue-100 text-blue-500 hover:bg-blue-200 hover:text-blue-600 transition duration-200 px-4 py-2 rounded-lg shadow-md"
+                            title="Filters"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="currentColor"
+                                className="w-6 h-6"
                             >
-                                <option value="">All Job Types</option>
-                                {uniqueJobTypes.map(jobtype => (
-                                    <option key={jobtype} value={jobtype}>{jobtype}</option>
-                                ))}
-                            </select>
-                        </label>
-                    </div>
-
-                    {/* Filter by Domain */}
-                    <div className="flex justify-between items-center mt-4 mb-6">
-                        <label className="text-gray-700">
-                            Filter by Domain:
-                            <select
-                                value={selectedDomain}
-                                onChange={(e) => setSelectedDomain(e.target.value)}
-                                className="ml-2 p-2 bg-white border rounded"
-                            >
-                                <option value="">All Domains</option>
-                                {uniqueDomains.map(domain => (
-                                    <option key={domain} value={domain}>{domain}</option>
-                                ))}
-                            </select>
-                        </label>
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M3 4.5h18M6.75 9h10.5M10.5 13.5h3M12 17.25h.75"
+                                />
+                            </svg>
+                            <span className="text-lg font-medium">Filter</span>
+                        </div>
                     </div>
 
                     {/* Jobs List */}
@@ -149,6 +149,59 @@ const Jobs = () => {
                     )}
                 </div>
             </div>
+
+            {/* Filter Modal */}
+            {showFilterModal && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-6 rounded-lg w-3/4 max-w-md">
+                        <h2 className="text-lg font-bold mb-4">Apply Filters</h2>
+                        <div className="mb-4">
+                            <label className="text-gray-700">
+                                Job Type:
+                                <select
+                                    value={tempJobType}
+                                    onChange={(e) => setTempJobType(e.target.value)}
+                                    className="ml-2 p-2 bg-white border rounded"
+                                >
+                                    <option value="">All Job Types</option>
+                                    {uniqueJobTypes.map(jobtype => (
+                                        <option key={jobtype} value={jobtype}>{jobtype}</option>
+                                    ))}
+                                </select>
+                            </label>
+                        </div>
+                        <div className="mb-4">
+                            <label className="text-gray-700">
+                                Domain:
+                                <select
+                                    value={tempDomain}
+                                    onChange={(e) => setTempDomain(e.target.value)}
+                                    className="ml-2 p-2 bg-white border rounded"
+                                >
+                                    <option value="">All Domains</option>
+                                    {uniqueDomains.map(domain => (
+                                        <option key={domain} value={domain}>{domain}</option>
+                                    ))}
+                                </select>
+                            </label>
+                        </div>
+                        <div className="flex justify-between mt-4">
+                            <button
+                                onClick={applyFilters}
+                                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                            >
+                                Apply
+                            </button>
+                            <button
+                                onClick={() => setShowFilterModal(false)}
+                                className="bg-gray-300 text-gray-700 py-2 px-4 rounded hover:bg-gray-400"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
             <Footer />
         </div>
     );
