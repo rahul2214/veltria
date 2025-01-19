@@ -186,17 +186,17 @@ const Jobs = () => {
                             </label>
                         </div>
                         <div className="flex justify-between mt-4">
-                            <button
-                                onClick={applyFilters}
-                                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
-                            >
-                                Apply
-                            </button>
+                           
                             <button
                                 onClick={() => setShowFilterModal(false)}
                                 className="bg-gray-300 text-gray-700 py-2 px-4 rounded hover:bg-gray-400"
                             >
                                 Cancel
+                            </button> <button
+                                onClick={applyFilters}
+                                className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+                            >
+                                Apply
                             </button>
                         </div>
                     </div>
